@@ -1,0 +1,51 @@
+{
+  "namespace": "fml47x",
+  "types": {
+    "fml_loginwrapper": [
+      "container",
+      [
+        {"name": "channel", "type": ["pstring", {"countType": "varint"}]},
+        {"name": "data", "type": ["buffer", {"countType": "varint"}]}
+      ]
+    ],
+    "fml_handshake": [
+      "container",
+      [
+        {
+          "name": "discriminator",
+          "type": ["mapper", {"type": "u8", "mappings": {"1": "ModList", "2": "ModData", "3": "HandshakeAck"}}]
+        },
+        {
+          "name": "data",
+          "type": [
+            "switch",
+            {
+              "compare": "discriminator",
+              "fields": {
+                "ModList": [
+                  "container",
+                  [
+                    {"name": "modNames", "type": ["array", {"countType": "varint", "type": "string"}]}
+                  ]
+                ],
+                "ModData": [
+                  "container",
+                  [
+                    {"name": "registryName", "type": "string"},
+                    {"name": "registryData", "type": "buffer"}
+                  ]
+                ],
+                "HandshakeAck": [
+                  "container",
+                  [
+                    {"name": "accepted", "type": "bool"}
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    ]
+  }
+}

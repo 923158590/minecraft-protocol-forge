@@ -1,0 +1,134 @@
+{
+  "namespace": "fml47x",
+  "types": [
+    {
+      "name": "fml_loginwrapper",
+      "fields": [
+        {
+          "name": "channel",
+          "type": [
+            "pstring",
+            {
+              "countType": "varint"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "type": [
+            "array",
+            {
+              "countType": "varint",
+              "type": "i8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fml_handshake",
+      "fields": [
+        {
+          "name": "discriminator",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "data",
+          "type": [
+            "switch",
+            {
+              "compare": "discriminator",
+              "fields": {
+                "ModList": [
+                  {
+                    "name": "modNames",
+                    "type": [
+                      "array",
+                      {
+                        "countType": "varint",
+                        "type": [
+                          "container",
+                          [
+                            {
+                              "name": "modid",
+                              "type": "string"
+                            },
+                            {
+                              "name": "version",
+                              "type": "string"
+                            }
+                          ]
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "channels",
+                    "type": [
+                      "array",
+                      {
+                        "countType": "varint",
+                        "type": [
+                          "container",
+                          [
+                            {
+                              "name": "name",
+                              "type": "string"
+                            },
+                            {
+                              "name": "marker",
+                              "type": "string"
+                            }
+                          ]
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "registries",
+                    "type": [
+                      "array",
+                      {
+                        "countType": "varint",
+                        "type": [
+                          "container",
+                          [
+                            {
+                              "name": "name",
+                              "type": "string"
+                            },
+                            {
+                              "name": "marker",
+                              "type": "string"
+                            }
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "ModData": [
+                  {
+                    "name": "registryName",
+                    "type": "string"
+                  },
+                  {
+                    "name": "registryData",
+                    "type": "buffer"
+                  }
+                ],
+                "HandshakeAck": [
+                  {
+                    "name": "accepted",
+                    "type": "bool"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
